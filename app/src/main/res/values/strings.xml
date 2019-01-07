@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">TomTom Speed Violation App</string>
+    <string name="app_name">Speed Check with TomTom</string>
+    <string name="text_slowdown">SLOW DOWN!</string>
+    <string name="text_speed_unit">mph</string>
+
+    <string name="reverse_geocoding_no_results">No revgeo data</string>
+    <string name="reverse_geocoding_error">Response failed</string>
 </resources>
