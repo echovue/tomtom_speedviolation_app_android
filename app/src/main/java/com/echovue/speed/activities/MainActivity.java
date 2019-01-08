@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.echovue.speed.R;
-import com.google.common.base.Strings;
 import com.tomtom.online.sdk.search.OnlineSearchApi;
 import com.tomtom.online.sdk.search.SearchApi;
 import com.tomtom.online.sdk.search.api.SearchError;
@@ -31,7 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnInformation;
+    private Button btnGetInformation;
     private TextView txtStreet;
     private TextView txtCity;
     private TextView txtState;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnInformation = findViewById(R.id.btnGetInformation);
+        btnGetInformation = findViewById(R.id.btnGetInformation);
         txtStreet = findViewById(R.id.txtStreet);
         txtCity = findViewById(R.id.txtCity);
         txtZipCode = findViewById(R.id.txtZipCode);
@@ -91,21 +90,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-/*        btnCheckSpeed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String speed = inputSpeed.getText().toString() + ' ' +
-                        getApplicationContext().getString(R.string.text_speed_unit);
-                txtCurrentSpeed.setVisibility(View.VISIBLE);
-                txtCurrentSpeed.setText(speed);
-
-                txtSlowDown.setVisibility(View.VISIBLE);
-
-                reverseGeocode(new Double(inputLatitude.getText().toString()),
-                               new Double(inputLongitude.getText().toString()));
-
-            }
-        });*/
+        btnGetInformation.setOnClickListener(v ->
+                reverseGeocode(currentLocation.getLatitude(),
+                               currentLocation.getLongitude()));
     }
 
     @Override
@@ -119,10 +106,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void reverseGeocode(final Location location) {
-        reverseGeocode(location.getLatitude(), location.getLongitude());
-    }
-
     protected void reverseGeocode(final double latitude, final double longitude) {
         SearchApi searchAPI = createSearchAPI();
         ReverseGeocoderSearchQuery reverseGeocoderQuery =
@@ -131,23 +114,19 @@ public class MainActivity extends AppCompatActivity {
         searchAPI.reverseGeocoding(reverseGeocoderQuery, new RevGeoSearchResultListener() {
             @Override
             public void onSearchResult(ReverseGeocoderSearchResponse response) {
-                String address = getAddressFromResponse(response);
-                Log.d("Address: ", address);
                 List<ReverseGeocoderFullAddress> addresses = response.getAddresses();
                 if (addresses.size() > 0) {
-                    for (ReverseGeocoderFullAddress add : addresses) {
-                        Log.d("Address: ", add.toString());
-                    }
+                    Address address = addresses.get(0).getAddress();
+                    txtStreet.setText(address.getStreetNumber() + ' ' + address.getStreetName());
+                    txtCity.setText(address.getMunicipality());
+                    txtState.setText(address.getCountrySubdivision());
+                    txtZipCode.setText(address.getPostalCode());
                 }
-                //balloon.setText(address);
-                //marker.select();
             }
 
             @Override
             public void onSearchError(SearchError error) {
                 Log.d("Address: ", getApplicationContext().getString(R.string.reverse_geocoding_error));
-                //balloon.setText(context.getString(R.string.reverse_geocoding_error));
-                //marker.select();
             }
         });
     }
@@ -160,28 +139,6 @@ public class MainActivity extends AppCompatActivity {
     protected ReverseGeocoderSearchQuery createReverseGeocoderQuery(double latitude, double longitude) {
         return ReverseGeocoderSearchQueryBuilder
                 .create(latitude, longitude)
-                .withReturnSpeedLimit(true)
                 .build();
-    }
-
-    protected String getNoReverseGeocodingResultsMessage() {
-        return getApplicationContext().getString(R.string.reverse_geocoding_no_results);
-    }
-
-    protected String getAddressFromResponse(ReverseGeocoderSearchResponse response) {
-
-        String result = getNoReverseGeocodingResultsMessage();
-
-        if (!response.hasResults()) {
-            return result;
-        }
-
-        Address address = response.getAddresses().get(0).getAddress();
-        String freeformAddress = address.getFreeformAddress();
-        if (!Strings.isNullOrEmpty(freeformAddress)) {
-            result = freeformAddress;
-        }
-
-        return result;
     }
 }
