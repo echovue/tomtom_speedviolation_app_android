@@ -7,105 +7,110 @@
     tools:context=".activities.MainActivity">
 
     <TextView
-        android:id="@+id/textCurrentSpeed"
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/txtStreet"
+        android:layout_width="200dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:text="0 mph"
         android:textSize="36sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.747" />
+        app:layout_constraintBottom_toTopOf="@+id/txtCity"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textSlowDown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/txtCity"
+        android:layout_width="200dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        android:text="SLOW DOWN!"
-        android:textColor="@color/colorAccent"
+        android:text="0 mph"
         android:textSize="36sp"
-        android:textStyle="bold"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/txtZipCode"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtZipCode"
+        android:layout_width="200dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:text="0 mph"
+        android:textSize="36sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/txtState"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtState"
+        android:layout_width="200dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="24dp"
+        android:text="0 mph"
+        android:textSize="36sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCurrentSpeed"
-        app:layout_constraintVertical_bias="0.699"
-        tools:visibility="invisible" />
+        tools:layout_editor_absoluteY="441dp" />
 
     <Button
-        android:id="@+id/buttonCheckSpeed"
+        android:id="@+id/btnGetInformation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Check Speed"
-        app:layout_constraintBottom_toTopOf="@+id/textCurrentSpeed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLongitude" />
-
-    <EditText
-        android:id="@+id/txtSpeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Speed"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/txtLatitude"
+        android:text="Get Location Information"
+        app:layout_constraintBottom_toTopOf="@+id/txtStreet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/txtLatitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Latitude"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/txtLongitude"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSpeed" />
+        android:text="Street:"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/txtStreet"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/txtLongitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="City:"
+        app:layout_constraintEnd_toStartOf="@+id/txtCity"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="361dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Longitude"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/buttonCheckSpeed"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Zip Code:"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toStartOf="@+id/txtZipCode"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="State:"
+        app:layout_constraintEnd_toStartOf="@+id/txtState"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLatitude" />
+        tools:layout_editor_absoluteY="441dp" />
 
 </android.support.constraint.ConstraintLayout>

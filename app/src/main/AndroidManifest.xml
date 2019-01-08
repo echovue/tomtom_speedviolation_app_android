@@ -11,30 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.echovue.speed.activities.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name="com.echovue.speed.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- provide here your keys -->
-
-        tag::doc_config_services[]
-        <meta-data
-            android:name="OnlineRouting.Key"
-            android:value="ReplaceWithAPIKey" />
         <meta-data
             android:name="OnlineSearch.Key"
             android:value="ReplaceWithAPIKey" />
-        end::doc_config_services[]
-
-        <!-- provide here your keys above here -->
     </application>
 
 </manifest>

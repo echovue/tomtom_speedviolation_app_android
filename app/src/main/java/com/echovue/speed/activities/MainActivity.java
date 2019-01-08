@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.echovue.speed.R;
@@ -32,35 +31,32 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnCheckSpeed;
-    private TextView txtCurrentSpeed;
-    private TextView txtSlowDown;
-    private EditText inputSpeed;
-    private EditText inputLatitude;
-    private EditText inputLongitude;
+    private Button btnInformation;
+    private TextView txtStreet;
+    private TextView txtCity;
+    private TextView txtState;
+    private TextView txtZipCode;
+    private Location currentLocation;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
-
-  /*  @Override
-    public void bind(FunctionalExampleFragment view, TomtomMap map) {
-        context = view.getContext();
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        btnInformation = findViewById(R.id.btnGetInformation);
+        txtStreet = findViewById(R.id.txtStreet);
+        txtCity = findViewById(R.id.txtCity);
+        txtZipCode = findViewById(R.id.txtZipCode);
+        txtState = findViewById(R.id.txtState);
+
         locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                inputLatitude.setText(new Double(location.getLatitude()).toString());
-                inputLongitude.setText(new Double(location.getLongitude()).toString());
-             /*   if (location.hasSpeed()) {
-                    Log.d("Speed: ", new Float(location.getSpeed()).toString());
-                }*/
+                currentLocation = location;
             }
 
             @Override
@@ -79,22 +75,23 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1, locationListener);
         }
 
-        btnCheckSpeed = findViewById(R.id.buttonCheckSpeed);
-        txtSlowDown = findViewById(R.id.textSlowDown);
-        txtCurrentSpeed = findViewById(R.id.textCurrentSpeed);
 
-        inputSpeed = findViewById(R.id.txtSpeed);
-        inputLatitude = findViewById(R.id.txtLatitude);
-        inputLongitude = findViewById(R.id.txtLongitude);
-
-
-        btnCheckSpeed.setOnClickListener(new View.OnClickListener() {
+/*        btnCheckSpeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String speed = inputSpeed.getText().toString() + ' ' +
@@ -108,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                new Double(inputLongitude.getText().toString()));
 
             }
-        });
+        });*/
     }
 
     @Override
@@ -117,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1, locationListener);
             }
         }
     }
